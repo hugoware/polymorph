@@ -10,6 +10,12 @@ export interface IPath {
     data: IPathSegment[]
 }
 
+// minimal alt layer mappings
+export interface IAltLayer {
+    id: string;
+    path: [number[]]
+};
+
 /**
  * Internal representation of Path data
  */
@@ -103,6 +109,9 @@ export interface InterpolateOptions {
      * Number of points to add when using optimize: fill.  The default is 0.
      */
     addPoints?: number
+
+    /** export path rendering in alt format */
+    renderAsAltLayer?: boolean,
 
     /**
      * Number of decimal places to use when rendering 'd' strings.

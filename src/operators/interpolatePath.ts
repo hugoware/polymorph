@@ -1,5 +1,5 @@
 import { IPath, IRenderer, InterpolateOptions, FloatArray } from '../types'
-import { renderPath } from './renderPath'
+import { renderPath, renderAsAlt } from './renderPath'
 import { EPSILON, abs, floor, min, round } from '../utilities/math'
 import { raiseError } from '../utilities/errors'
 import { normalizePaths } from './normalizePaths'
@@ -36,10 +36,12 @@ export function interpolatePath(paths: IPath[], options: InterpolateOptions): (o
     // create formatter for the precision
     const formatter = !options.precision ? round : (n: number) => n.toFixed(options.precision)
 
-    return (offset: number): string => {
+    return (offset: number): any => {
         const d = hlen * offset
         const flr = min(floor(d), hlen - 1)
-        return renderPath(items[flr]((d - flr) / (flr + 1)), formatter)
+        const ns = items[flr]((d - flr) / (flr + 1));
+        const render = options.renderAsAltLayer ? renderAsAlt : renderPath;
+        return render(ns, formatter);
     }
 }
 

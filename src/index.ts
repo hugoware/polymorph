@@ -1,2 +1,2 @@
 export * from './types'
-export { interpolate } from './interpolate'
+export { interpolate, altInterpolate } from './interpolate'
